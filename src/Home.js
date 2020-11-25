@@ -1,6 +1,4 @@
-import logo from './logo.svg';
-import './App.css';
-import Image from './image.jpg'
+import './App.css'; 
 import React, { useState, useEffect } from 'react';
 import { createGlobalStyle } from 'styled-components';
 import Navbar from './components/Navbar';
@@ -8,7 +6,11 @@ import Logo from './components/Logo';
 
 import ReactFullpage from '@fullpage/react-fullpage';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom';
+import KopiImage from './assets/jurnal1/biji1-min.jpg';
+import BayarImage from './assets/jurnal1/bayar_kopi-min.jpeg';
+
+
 
 const GlobalStyles = createGlobalStyle`
  html {
@@ -24,7 +26,35 @@ const GlobalStyles = createGlobalStyle`
 
 
 function App() {
-  const [load, setLoad] = useState(true);
+
+  const [imgsLoaded, setImgsLoaded] = useState(false);
+  const IMAGES = [BayarImage];
+
+  const history = useHistory();
+
+
+
+
+
+
+
+  useEffect(() => {
+    const loadImage = image => {
+      return new Promise((resolve, reject) => {
+        console.log(image)
+        const loadImg = new Image()
+        loadImg.src = image 
+        loadImg.onload = () =>
+          setTimeout(() => {
+            resolve(image.url)
+          }, 2000)
+        loadImg.onerror = err => reject(err)
+      })
+    } 
+    Promise.all(IMAGES.map(image => loadImage(image)))
+      .then(() => setImgsLoaded(true))
+      .catch(err => console.log("Failed to load images", err))
+  }, []);
 
   let loading = <div style={{
     height: '100vh',
@@ -34,23 +64,19 @@ function App() {
     justifyContent: 'center',
     alignItems: 'center',
     position: 'fixed',
-    zIndex: 99,
-    opacity: load ? 1 : 0,
-    visibility: load ? 'visible' : 'hidden',
-    transition: 'opacity 1s, visibility 0.5s linear 2s',
+    zIndex: 200,
+    opacity: !imgsLoaded ? 1 : 0,
+    visibility: !imgsLoaded ? 'visible' : 'hidden',
+    transition: 'opacity 0.5s, visibility 0.5s linear 0.2s',
   }}>
     <div className="aaa"></div>
   </div>
 
-  useEffect(() => {
-    setTimeout(() => setLoad(false), 800)
-  }, []);
 
-  useEffect(() => {
-    if (load == false) {
-      setTimeout(() => loading = null, 2000)
-    }
-  }, [load]);
+
+
+
+
   return (
     <>
       {loading}
@@ -71,28 +97,14 @@ function App() {
           return (
             <ReactFullpage.Wrapper>
               <div className="section" style={{ backgroundColor: 'green' }}>
-                <Bg style={{ paddingTop: 80, backgroundColor: 'blue', textAlign: "left" }} image='https://asset.kompas.com/data/photo/2020/10/16/5f8906974feb0.jpg'>
+                <Bg style={{ paddingTop: 80, backgroundColor: 'black', textAlign: "left" }} image={KopiImage}>
                   <div className='overlay' style={{ display: 'flex', alignItems: 'center', padding: 24 }}>
                     <div>
-                      <h1 style={{ color: 'white' }} className='title'>RESESI UNTUK PEMULA</h1>
+                      <h1 style={{ color: 'white' }} className='title'>BERDIKARI DENGAN KOPI</h1>
                       <p className="subTitle">
-                        Tetap Merangkai Prestasi di Tengah Pandemi
+                        Dari Konservasi Satwa, hingga UMKM yang Mendunia
                       </p>
-                      <button >LIHAT    </button>
-                    </div>
-
-                  </div>
-                </Bg>
-              </div>
-              <div className="section" style={{ backgroundColor: 'green' }}>
-                <Bg style={{ paddingTop: 80, backgroundColor: 'blue', textAlign: "left" }} image='https://asset.kompas.com/data/photo/2020/10/05/5f7af945df258.jpg'>
-                  <div className='overlay' style={{ display: 'flex', alignItems: 'center', padding: 24 }}>
-                    <div>
-                      <h1 style={{ color: 'white' }} className='title'>THOMAS UBER TERTUNDA, HARAPAN HARUS TERJAGA</h1>
-                      <p className="subTitle">
-                        TETAP MERANGKAI PRESTASI DI TENGAH PANDEMI
-                      </p>
-                      <button >LIHAT    </button>
+                      <button onClick={() => { history.push('kopi') }} >LIHAT</button>
                     </div>
 
                   </div>

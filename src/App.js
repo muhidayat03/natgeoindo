@@ -12,30 +12,23 @@ import Home from './Home';
 import ListArticle from './ListArticle';
 
 import { Switch, Route, NavLink } from "react-router-dom";
+import Jurnal1 from './pages/jurnal1/Jurnal1';
+import Jurnal2 from './pages/jurnal1/Jurnal2';
 
-const GlobalStyles = createGlobalStyle`
- html {
-   box-sizing: border-box;
-}
-
- *,
- *::before,
- *::after {
-   box-sizing: inherit;
-}
-`;
-
-
+ 
 function App() {
 
 
   return (
     <Switch>
       <Route path="/list" component={ListArticle} />
+      <Route path="/kopi" component={Jurnal1} />
+      <Route path="/kopi2" component={Jurnal2} />
       <Route component={Home} />
     </Switch>
   );
 }
+
 
 
 
