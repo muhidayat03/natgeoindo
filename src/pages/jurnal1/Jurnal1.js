@@ -12,7 +12,7 @@ import Navbar from '../../components/Navbar';
 import Logo from '../../components/Logo';
 import Logo1 from '../../assets/jurnal1/logo_national_geographic.png';
 import Logo2 from '../../assets/jurnal1/logo_national_geographic_coid.png';
-import Logo3 from '../../assets/jurnal1/logo_pertamina.png';
+import Logo3 from '../../assets/jurnal1/logo_pertamina_white.png';
 
 import CountUp from 'react-countup';
 import AOS from 'aos';
@@ -23,7 +23,7 @@ import {
   useScrollSection,
   Section,
 } from 'react-scroll-section';
-import { useScrollPosition, useScrollXPosition, useScrollYPosition } from 'react-use-scroll-position';
+import { useScrollYPosition } from 'react-use-scroll-position';
 
 
 
@@ -50,9 +50,9 @@ const NumberCount = ({ number }) => {
 
 
 
+const IMAGES = [bgImage, bgImage1, RobustaImage, RobustaImage, OwaImage, ProdukImage];
 const Jurnal1 = () => {
   const scrollY = useScrollYPosition();
-  const IMAGES = [bgImage, bgImage1, RobustaImage, RobustaImage, OwaImage, ProdukImage];
 
   const [imgsLoaded, setImgsLoaded] = useState(false);
   const [showVideo, setShowVideo] = useState(false);
@@ -71,7 +71,6 @@ const Jurnal1 = () => {
       return new Promise((resolve, reject) => {
         const loadImg = new Image()
         loadImg.src = image
-        // wait 2 seconds to simulate loading time
         loadImg.onload = () =>
           setTimeout(() => {
             resolve(image.url)
@@ -83,7 +82,7 @@ const Jurnal1 = () => {
     Promise.all(IMAGES.map(image => loadImage(image)))
       .then(() => setImgsLoaded(true))
       .catch(err => console.log("Failed to load images", err))
-  }, [IMAGES]);
+  }, []);
 
   useEffect(() => {
     if (window && 'IntersectionObserver' in window) {
@@ -109,17 +108,38 @@ const Jurnal1 = () => {
   }
 
 
-
   const TopMenu = () => {
     const homeSection = useScrollSection('home');
+    const sejarahSection = useScrollSection('sejarah');
+    const owaSection = useScrollSection('owa');
+    const panenSection = useScrollSection('panen');
+    const produkSection = useScrollSection('produk');
+    const bayarSection = useScrollSection('bayar');
+    const mitraSection = useScrollSection('mitra');
+    const videoSection = useScrollSection('video');
     return (
+      <>
+        <div style={{ cursor: 'pointer', position: "fixed", bottom: 32, right: 32, zIndex: 100 }}>
+          <ListMenu className="hover" style={{ marginBottom: 20, height: 60, width: 60, borderRadius: 30, border: "2px solid white", color: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: 'black' }}>
+            <span style={{ color: 'white', fontWeight: 'bold' }} className="icon-list icon-class"></span>
+            <div className="dropdown-content">
+              <div selected={sejarahSection.selected} onClick={sejarahSection.onClick} className="menu-item">Sejarah Kopi</div>
+              <div selected={owaSection.selected} onClick={owaSection.onClick} className="menu-item">Owa Jawa</div>
+              <div selected={panenSection.selected} onClick={panenSection.onClick} className="menu-item">Panen Kopi Puntang</div>
+              <div selected={produkSection.selected} onClick={produkSection.onClick} className="menu-item">Produk Kopi Puntang</div>
+              <div selected={bayarSection.selected} onClick={bayarSection.onClick} className="menu-item">Bayar Kopi Pakai Sampah</div>
+              <div selected={mitraSection.selected} onClick={mitraSection.onClick} className="menu-item">Kemitraan Kopi untuk UMKM</div>
+              <div selected={videoSection.selected} onClick={videoSection.onClick} className="menu-item">Video Kopi Aceh Bawadi</div>
+            </div>
+          </ListMenu>
 
-      <div onClick={homeSection.onClick} selected={homeSection.selected} style={{ cursor: 'pointer', position: "fixed", bottom: 32, right: 32, zIndex: 100 }}>
-        <div className="hover" style={{height: 60, width: 60, borderRadius: 30, border: "2px solid white", color: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center' , backgroundColor: 'black'}}>
-          <span style={{ color: 'white', fontWeight: 'bold' }} className="icon-up icon-class"></span>
+          <div selected={homeSection.selected} onClick={homeSection.onClick} className="hover" style={{ height: 60, width: 60, borderRadius: 30, border: "2px solid white", color: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: 'black' }}>
+            <span style={{ color: 'white', fontWeight: 'bold' }} className="icon-up icon-class"></span>
+          </div>
         </div>
 
-      </div>
+
+      </>
 
     );
   };
@@ -192,24 +212,26 @@ const Jurnal1 = () => {
           </Section>
         </div>
 
-        <Container2 id='history'>
-          <Parallax blur={{ min: -10, max: 15 }} bgImage={SpaceImage} strength={500} >
-            <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center' }}>
-              <ContentContainer style={{ backgroundColor: 'rgba(251, 252, 254, .05) ', padding: '40px 20px', }}>
-                <p>
-                  <First>S</First>ekitar 13 abad silam, di daratan Etiopia, hiduplah seorang penggembala kambing bernama Kaldi. Pada suatu hari, ia melihat kawanan ternaknya bertingkah aneh. Mereka seolah-olah sedang menari! Tidak ada yang bisa memastikan kebenaran cerita tersebut. Tetapi, kisah itulah yang sering disebut-sebut sebagai awal mula orang mengenal kopi.
+        <Section id="sejarah">
+          <Container2>
+            <Parallax blur={{ min: -10, max: 15 }} bgImage={SpaceImage} strength={500} >
+              <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center' }}>
+                <ContentContainer style={{ backgroundColor: 'rgba(251, 252, 254, .05) ', padding: '40px 20px', }}>
+                  <p>
+                    <First>S</First>ekitar 13 abad silam, di daratan Etiopia, hiduplah seorang penggembala kambing bernama Kaldi. Pada suatu hari, ia melihat kawanan ternaknya bertingkah aneh. Mereka seolah-olah sedang menari! Tidak ada yang bisa memastikan kebenaran cerita tersebut. Tetapi, kisah itulah yang sering disebut-sebut sebagai awal mula orang mengenal kopi.
               </p>
-                <p>
+                  <p>
 
-                  Belakangan, Kaldi mengetahui bahwa kambing-kambing itu memakan sejenis kacang merah. Ia lalu menyimpulkan bahwa kacang itulah penyebab kawanan ternaknya bertingkah aneh. Kaldi kemudian mengabarkan temuannya kepada seorang biksu yang membutuhkan sesuatu untuk tetap terjaga sepanjang malam ketika berdoa. Namun, dalam cerita yang lain, biksu tersebut menolak dan melemparkan kacang tersebut ke dalam api dan memunculkan aroma yang menyenangkan.
+                    Belakangan, Kaldi mengetahui bahwa kambing-kambing itu memakan sejenis kacang merah. Ia lalu menyimpulkan bahwa kacang itulah penyebab kawanan ternaknya bertingkah aneh. Kaldi kemudian mengabarkan temuannya kepada seorang biksu yang membutuhkan sesuatu untuk tetap terjaga sepanjang malam ketika berdoa. Namun, dalam cerita yang lain, biksu tersebut menolak dan melemparkan kacang tersebut ke dalam api dan memunculkan aroma yang menyenangkan.
             </p>
-                <p style={{ fontWeight: 'bold' }}>
-                  Tidak ada yang bisa memastikan kebenaran cerita tersebut. Tetapi, kisah itulah yang sering disebut-sebut sebagai awal mula orang mengenal kopi.
+                  <p style={{ fontWeight: 'bold' }}>
+                    Tidak ada yang bisa memastikan kebenaran cerita tersebut. Tetapi, kisah itulah yang sering disebut-sebut sebagai awal mula orang mengenal kopi.
             </p>
-              </ContentContainer>
-            </div>
-          </Parallax>
-        </Container2>
+                </ContentContainer>
+              </div>
+            </Parallax>
+          </Container2>
+        </Section>
 
         <Container3 style={{ display: 'flex' }}>
           <Balok>
@@ -256,7 +278,7 @@ const Jurnal1 = () => {
           </SideContainer>
         </Container4>
 
-        <Container3 style={{ display: 'flex', minHeight: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <Container3 style={{ display: 'flex', minHeight: '100vh', justifyContent: 'center', alignItems: 'center' }}>
           <div style={{ display: 'flex' }}>
             <Balok>
               <div className='balok-item' style={{ margin: '40px 0 20px', top: '40vh' }}></div>
@@ -275,31 +297,44 @@ const Jurnal1 = () => {
           </div>
         </Container3>
 
+
+
+
+
         <div style={{ width: '100%', height: '100vh' }}>
-          <ParalaxImage image={OwaImage}>
-            <Caption>FOTO: OWA JAWA</Caption>
+          <Section id="owa">
+            <ParalaxImage image={OwaImage}>
+              <Caption>Owa jawa, satwa endemik Pulau Jawa yang hampir punah.</Caption>
 
-          </ParalaxImage>
-          <Container6>
-            <BgOverlay style={{ opacity: 0.75 }}></BgOverlay>
+            </ParalaxImage>
+            <Container6>
+              <BgOverlay style={{ opacity: 0.75 }}></BgOverlay>
 
-            <DetailedArticle data-aos="fade-up"
-              data-aos-anchor-placement="top-bottom">
-              <article >
-                <p style={{ color: 'white' }}>
-                  Diperlukan upaya konservasi demi menyelamatkan Owa jawa dari kepunahan, sekaligus menjaga kelestarian hutan. Namun, ada beberapa tantangan yang harus dihadapi. Selain habitat yang semakin sempit, perburuan oleh manusia juga mengancam Owa jawa. Di wilayah Pegunungan Malabar, Jawa Barat, misalnya, upaya konservasi Owa jawa akan lebih sulit lantaran masih maraknya pemburu liar dan perambah hutan. Oleh sebab itu, peran masyarakat di sekitar lokasi konservasi sangat dibutuhkan.
+              <DetailedArticle data-aos="fade-up"
+                data-aos-anchor-placement="top-bottom">
+                <article >
+                  <p style={{ color: 'white' }}>
+                    Diperlukan upaya konservasi demi menyelamatkan Owa jawa dari kepunahan, sekaligus menjaga kelestarian hutan. Namun, ada beberapa tantangan yang harus dihadapi. Selain habitat yang semakin sempit, perburuan oleh manusia juga mengancam Owa jawa. Di wilayah Pegunungan Malabar, Jawa Barat, misalnya, upaya konservasi Owa jawa akan lebih sulit lantaran masih maraknya pemburu liar dan perambah hutan. Oleh sebab itu, peran masyarakat di sekitar lokasi konservasi sangat dibutuhkan.
               </p>
-                <p style={{ color: 'white' }}>
-                  Upaya untuk melibatkan masyarakat dalam pelestarian hutan sebagai habitat Owa jawa telah dilakukan Pertamina EP Subang Field. Caranya, mengajak warga yang tinggal di sekitar Gunung Puntang untuk menanam kopi. Aktivitas yang telah berlangsung sejak 2017 ini merupakan bagian Program CSR Melintang (Masyarakat Peduli Alam Puntang).
+                  <p style={{ color: 'white' }}>
+                    Upaya untuk melibatkan masyarakat dalam pelestarian hutan sebagai habitat Owa jawa telah dilakukan Pertamina EP Subang Field. Caranya, mengajak warga yang tinggal di sekitar Gunung Puntang untuk menanam kopi. Aktivitas yang telah berlangsung sejak 2017 ini merupakan bagian Program CSR Melintang (Masyarakat Peduli Alam Puntang).
               </p>
-              </article>
-            </DetailedArticle>
-          </Container6>
-          <ParalaxImage image={bgImage}>
-            <Caption>FOTO: HASIL PANEN KOPI PUNTANG</Caption>
+                </article>
+              </DetailedArticle>
+            </Container6>
+          </Section>
 
 
-          </ParalaxImage>
+
+          <Section id="panen">
+            <ParalaxImage image={bgImage}>
+              <Caption>Hasil panen kopi Puntang.</Caption>
+
+
+
+
+            </ParalaxImage>
+          </Section>
           <Container6 >
             <BgOverlay style={{ opacity: 0.75 }}></BgOverlay>
             <DetailedArticle data-aos="fade-up"
@@ -311,11 +346,15 @@ const Jurnal1 = () => {
               </article>
             </DetailedArticle>
           </Container6>
-          <ParalaxImage image={ProdukImage}>
-            <Caption>FOTO: PRODUK KOPI PUNTANG</Caption>
+          <Section id="produk">
+            <ParalaxImage image={ProdukImage}>
+              <Caption>Produk kopi Puntang yang dikelola LMDH Bukit Amanah.</Caption>
 
 
-          </ParalaxImage>
+
+
+            </ParalaxImage>
+          </Section>
           <Container6>
             <BgOverlay style={{ opacity: 0.75 }}></BgOverlay>
 
@@ -338,10 +377,14 @@ const Jurnal1 = () => {
             </Container3>
           </article>
 
-          <ParalaxImage image={BayarImage}>
-            <Caption>FOTO: KOPI BAYAR PAKAI SAMPAH</Caption>
 
-          </ParalaxImage>
+          <Section id="bayar">
+
+            <ParalaxImage image={BayarImage}>
+              <Caption>Bayar kopi pakai sampah.</Caption>
+
+            </ParalaxImage>
+          </Section>
 
           <Container6 style={{ flexDirection: 'column' }}>
             <BgOverlay style={{ opacity: 0.75 }}></BgOverlay>
@@ -358,123 +401,119 @@ const Jurnal1 = () => {
             <div style={{ display: 'flex', flexWrap: 'wrap', marginTop: 40 }}>
               <BoxInfo>
                 <div className='titleBox'>
-                  <h2 style={{ textAlign: 'center', color: 'white', margin: 0, color: '#FED602' }}>Omset Per Bulan</h2>
+                  <h2 style={{ textAlign: 'center', margin: 0, color: '#FED602' }}>Omset Per Bulan</h2>
                 </div>
                 <div className='angka'>  <NumberCount number={20} />  </div>
 
-                <h1 style={{ textAlign: 'center', color: 'white', margin: 0, color: '#FED602' }}>Juta</h1>
+                <h1 style={{ textAlign: 'center', margin: 0, color: '#FED602' }}>Juta</h1>
               </BoxInfo>
               <BoxInfo style={{ borderRight: '3px solid #FED602', borderLeft: '3px solid #FED602' }}>
                 <div className='titleBox'>
-                  <h2 style={{ textAlign: 'center', color: 'white', margin: 0, color: '#FED602' }}>Memberdayakan</h2>
+                  <h2 style={{ textAlign: 'center', margin: 0, color: '#FED602' }}>Memberdayakan</h2>
                 </div>
                 <div className='angka'>  <NumberCount number={10} /> </div>
 
-                <h1 style={{ textAlign: 'center', color: 'white', margin: 0, color: '#FED602' }}>Orang</h1>
+                <h1 style={{ textAlign: 'center', margin: 0, color: '#FED602' }}>Orang</h1>
               </BoxInfo>
               <BoxInfo>
                 <div className='titleBox'>
-                  <h2 style={{ textAlign: 'center', color: 'white', margin: 0, color: '#FED602' }}>Sampah Terkumpul Per Bulan</h2>
+                  <h2 style={{ textAlign: 'center', margin: 0, color: '#FED602' }}>Sampah Terkumpul Per Bulan</h2>
                 </div>
                 <div className='angka'>  <NumberCount number={897} /> </div>
 
-                <h1 style={{ textAlign: 'center', color: 'white', margin: 0, color: '#FED602' }}>Kilogram</h1>
+                <h1 style={{ textAlign: 'center', margin: 0, color: '#FED602' }}>Kilogram</h1>
               </BoxInfo>
             </div>
           </Container6>
 
-          <Container3 style={{ display: 'flex' }}>
 
-            <Balok>
-              <div className='balok-item' style={{ margin: '40px 0 20px' }}></div>
-            </Balok>
 
-            <article style={{ flex: 1 }}>
-              <h1 style={{ fontSize: 36 }}>
-                Program Kemitraan Kopi untuk UMKM
+          <Section id="mitra">
+
+            <Container3 style={{ display: 'flex' }}>
+
+              <Balok>
+                <div className='balok-item' style={{ margin: '40px 0 20px' }}></div>
+              </Balok>
+
+              <article style={{ flex: 1 }}>
+                <h1 style={{ fontSize: 36 }}>
+                  Program Kemitraan Kopi untuk UMKM
           </h1>
-              <p>
-                Indonesia merupakan salah satu negara penghasil kopi terbaik di dunia. Kualitasnya yang unggul dan cita rasanya yang khas, menjadikan biji kopi asal Indonesia disukai penikmat kopi di berbagai negara. Meksiko, misalnya, menjadi salah satu negara tempat kopi Indonesia begitu diminati. Menurut data Kementerian Perdagangan, meskipun Meksiko merupakan salah satu negara penghasil kopi, kopi Indonesia berhasil merebut 50 persen pangsa pasar kopi impor di Meksiko, disusul Kolombia dengan pangsa pasar rata-rata sebesar 14—16 persen per bulan.
+                <p>
+                  Indonesia merupakan salah satu negara penghasil kopi terbaik di dunia. Kualitasnya yang unggul dan cita rasanya yang khas, menjadikan biji kopi asal Indonesia disukai penikmat kopi di berbagai negara. Meksiko, misalnya, menjadi salah satu negara tempat kopi Indonesia begitu diminati. Menurut data Kementerian Perdagangan, meskipun Meksiko merupakan salah satu negara penghasil kopi, kopi Indonesia berhasil merebut 50 persen pangsa pasar kopi impor di Meksiko, disusul Kolombia dengan pangsa pasar rata-rata sebesar 14—16 persen per bulan.
             </p>
-              <p>
-                Peluang tersebut kemudian dimanfaatkan oleh Teuku Dharul Bawadi untuk terjun ke industri kopi. Melalui usaha Bawadi Coffee, ia memasarkan kopi single origin Aceh. Tak hanya soal bisnis, Bawadi Coffee memiliki komitmen untuk membesarkan potensi kopi Aceh dan mengembangkan hasil tani kopi Aceh ke seluruh dunia.
+                <p>
+                  Peluang tersebut kemudian dimanfaatkan oleh Teuku Dharul Bawadi untuk terjun ke industri kopi. Melalui usaha Bawadi Coffee, ia memasarkan kopi single origin Aceh. Tak hanya soal bisnis, Bawadi Coffee memiliki komitmen untuk membesarkan potensi kopi Aceh dan mengembangkan hasil tani kopi Aceh ke seluruh dunia.
             </p>
-              <p>
-                Saat awal mula berbisnis, Bawadi hanya bermodalkan Rp30 juta dan bekerja sama dengan lima orang petani kopi Aceh saja. Dengan semangat dan kerja keras, ia akhirnya berhasil memperluas kerja sama dengan koperasi yang memiliki 1.140 orang petani kopi dalam empat tahun. Omzetnya dari usaha kopi melonjak 200 persen sejak ia memulai usaha kecilnya.
+                <p>
+                  Saat awal mula berbisnis, Bawadi hanya bermodalkan Rp30 juta dan bekerja sama dengan lima orang petani kopi Aceh saja. Dengan semangat dan kerja keras, ia akhirnya berhasil memperluas kerja sama dengan koperasi yang memiliki 1.140 orang petani kopi dalam empat tahun. Omzetnya dari usaha kopi melonjak 200 persen sejak ia memulai usaha kecilnya.
             </p>
-              <p>
-                Tak hanya sukses di Tanah Air, bisnis kopi Bawadi juga sukses menembus pasar internasional. Pemuda 31 tahun ini berhasil mengenalkan kopi Aceh hingga ke Malaysia, Singapura, Thailand, Kamboja, dan Eropa. Keberhasilannya ini juga tidak terlepas dari dukungan pinjaman modal usaha Program Kemitraan Pertamina untuk menambah kapasitas produksi Bawadi Coffee.
+                <p>
+                  Tak hanya sukses di Tanah Air, bisnis kopi Bawadi juga sukses menembus pasar internasional. Pemuda 31 tahun ini berhasil mengenalkan kopi Aceh hingga ke Malaysia, Singapura, Thailand, Kamboja, dan Eropa. Keberhasilannya ini juga tidak terlepas dari dukungan pinjaman modal usaha Program Kemitraan Pertamina untuk menambah kapasitas produksi Bawadi Coffee.
             </p>
-              <p>
-                Pada 2018, Bawadi Coffee mendapatkan pinjaman modal usaha sebesar Rp150 juta. Setahun kemudian, Pertamina juga membawa Bawadi Coffee mengikuti pameran di “The 16th China-ASEAN Expo (CAEXPO 2019)” di Nanning International Convention and Exhibition Center, China, dan berhasil mendapat pesanan kopi total senilai Rp1,4 miliar.
+                <p>
+                  Pada 2018, Bawadi Coffee mendapatkan pinjaman modal usaha sebesar Rp150 juta. Setahun kemudian, Pertamina juga membawa Bawadi Coffee mengikuti pameran di “The 16th China-ASEAN Expo (CAEXPO 2019)” di Nanning International Convention and Exhibition Center, China, dan berhasil mendapat pesanan kopi total senilai Rp1,4 miliar.
             </p>
-              <p>
-                Upaya Pertamina dalam memanfaatkan kopi untuk mendukung UMKM menjadi energi positif bagi Indonesia. Energi yang memberdayakan masyarakat lokal di bidang ekonomi dan mampu mengembangkan potensi daerahnya sendiri. Bukan hal yang tak mungkin, jika di masa depan UMKM turut menjadi penyangga ekonomi nasional.
+                <p>
+                  Upaya Pertamina dalam memanfaatkan kopi untuk mendukung UMKM menjadi energi positif bagi Indonesia. Energi yang memberdayakan masyarakat lokal di bidang ekonomi dan mampu mengembangkan potensi daerahnya sendiri. Bukan hal yang tak mungkin, jika di masa depan UMKM turut menjadi penyangga ekonomi nasional.
           </p>
-            </article>
-          </Container3>
+              </article>
+            </Container3>
+          </Section>
 
-          <div
-            ref={yt_container}
-            className="video"
-            style={{
-              position: "relative",
-              paddingBottom: "56.25%" /* 16:9 */,
-              paddingTop: 25,
-              height: 0
-            }}
-          >
-            {
-              showVideo ? <iframe
-                loading="lazy"
-                style={{
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  width: "100%",
-                  height: "100%"
-                }}
-                src="https://www.youtube.com/embed/d6faWQW5aLI?&autoplay=1&mute=1&enablejsapi=1&loop=1"
-                frameBorder="0"
-                allowFullScreen
-                allow="autoplay; encrypted-media"
-              /> : undefined
-            }
+          <Section id="video">
 
-          </div>
+            <div
+              ref={yt_container}
+              className="video"
+              style={{
+                position: "relative",
+                paddingBottom: "56.25%" /* 16:9 */,
+                paddingTop: 25,
+                height: 0
+              }}
+            >
+              {
+                showVideo ? <iframe
+                  title='video'
+                  loading="lazy"
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    width: "100%",
+                    height: "100%"
+                  }}
+                  src="https://www.youtube.com/embed/d6faWQW5aLI?&autoplay=1&mute=1&enablejsapi=1&loop=1"
+                  frameBorder="0"
+                  allowFullScreen
+                  allow="autoplay; encrypted-media"
+                /> : undefined
+              }
 
-          <div style={{ padding: 60, backgroundColor: 'black', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
-            <div style={{ display: 'flex', marginBottom: 48, }}>
-              <div style={{ width: 120, marginRight: 48, }}>
-                <div style={{ marginBottom: 24 }}>
-                  <h4 style={{ textAlign: 'right', color: "white", marginBottom: 4 }}>Reporter</h4>
-                  <p style={{ textAlign: 'right', color: "white", margin: 0, fontSize: 14 }}>Nama orangnya</p>
-                </div>
-                <div style={{ marginBottom: 24 }}>
-                  <h4 style={{ textAlign: 'right', color: "white", marginBottom: 4 }}>Fotografer</h4>
-                  <p style={{ textAlign: 'right', color: "white", margin: 0, fontSize: 14 }}>Nama orangnya</p>
-                </div>
-                <div style={{ marginBottom: 24 }}>
-                  <h4 style={{ textAlign: 'right', color: "white", marginBottom: 4 }}>Videografer</h4>
-                  <p style={{ textAlign: 'right', color: "white", margin: 0, fontSize: 14 }}>Nama orangnya</p>
-                </div>
+            </div>
+          </Section>
+
+          <div style={{ backgroundColor: 'black', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', paddingBottom: 60 }}>
+            <div style={{ display: 'flex', marginBottom: 48, maxWidth: 800, width: '100%', justifyContent: 'center', flexWrap: 'wrap' }}>
+              <div style={{ marginBottom: 24, width: '30%', minWidth: '200px' }}>
+                <h4 style={{ textAlign: 'center', color: "white", marginBottom: 4 }}>Reporter</h4>
+                <p style={{ textAlign: 'center', color: "white", margin: 0, fontSize: 14 }}>Lastboy Tahara Sinaga</p>
               </div>
-              <div style={{ width: 120 }}>
-                <div style={{ marginBottom: 24 }}>
-                  <h4 style={{ textAlign: 'left', color: "white", marginBottom: 4 }}>Editor</h4>
-                  <p style={{ textAlign: 'left', color: "white", margin: 0, fontSize: 14 }}>Nama orangnya</p>
-                </div>
-                <div style={{ marginBottom: 24 }}>
-                  <h4 style={{ textAlign: 'left', color: "white", marginBottom: 4 }}>Desainer & <br></br>Ilustrator</h4>
-                  <p style={{ textAlign: 'left', color: "white", margin: 0, fontSize: 14 }}>Nama orangnya</p>
-                </div>
-
+              <div style={{ marginBottom: 24, width: '30%', minWidth: '200px' }}>
+                <h4 style={{ textAlign: 'center', color: "white", marginBottom: 4 }}>Editor</h4>
+                <p style={{ textAlign: 'center', color: "white", margin: 0, fontSize: 14 }}>Firman Firdaus</p>
+              </div>
+              <div style={{ marginBottom: 24, width: '30%', minWidth: '200px' }}>
+                <h4 style={{ textAlign: 'center', color: "white", marginBottom: 4 }}>Foto dan Video</h4>
+                <p style={{ textAlign: 'center', color: "white", margin: 0, fontSize: 14 }}>Dokumentasi Pertamina</p>
               </div>
             </div>
-            <div style={{ display: "flex", flexWrap: 'wrap', justifyContent: 'center', width: '100%' }}>
-              <ImageFooter src={Logo1} style={{ margin: 10 }} />
-              <ImageFooter src={Logo2} style={{ margin: 10 }} />
-              <ImageFooter src={Logo3} style={{ margin: 10 }} />
+            <div style={{ display: "flex", flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
+              <ImageFooter height={50} src={Logo1} style={{ margin: 10 }} />
+              <ImageFooter height={40} src={Logo2} style={{ margin: 10 }} />
+              <ImageFooter height={40} src={Logo3} style={{ margin: 10 }} />
             </div>
           </div>
 
@@ -484,10 +523,50 @@ const Jurnal1 = () => {
   </>
 }
 
+
+const ListMenu = styled.div`
+.dropdown-content {
+  display: none;
+  position: absolute; 
+  min-width: 200px;
+  padding: 12px 16px 20px;
+  z-index: 1; 
+  bottom: 48px; 
+  right: -10px;  
+
+}
+.menu-item{
+  &:last-child{
+    border-bottom: 2px solid white; 
+  }
+background-color:black;
+box-shadow: 4px 4px 18px 4px rgba(0,0,0,0.4);
+
+color: white; 
+border-color: white;
+border-style: solid;
+border-width: 2px 2px 0px 2px;
+padding: 10px;
+text-align:center; 
+font-size: 10px;
+font-weight: bold; 
+:hover{
+  transform:scale(1.2);
+  border-bottom: 2px solid white;
+
+}
+}
+:hover .dropdown-content {
+  display: block;
+}
+`;
+
+
 const GlobalStyle = createGlobalStyle`
   p{
     font-family: charter, Georgia, Cambria, "Times New Roman", Times, serif;
     font-size: 20px;
+    line-height: 1.48;
     @media(max-width: 800px){
       font-size: 18px;
     }
@@ -602,17 +681,14 @@ const First = styled.span`
 `;
 
 
+
+
 const ContentContainer = styled.div`
   max-width : 800px;
   margin: 0 auto;
   p{
     line-height: 1.8;
-  }
-  /* @media(max-width:400px){
-    p{
-      line-height: 1.1;
-    }
-  } */
+  } 
 `;
 
 const BgOverlay = styled.div`
@@ -655,7 +731,7 @@ const DetailedArticle = styled.div`
 `;
 
 const ParalaxImage = styled.div`
-  height: 100%;
+  height: 100vh;
   background:  ${(props) => `url(${props.image})`};
   background-attachment: fixed;
   background-position: center;
@@ -698,9 +774,8 @@ const Balok = styled.div`
 `;
 
 const ImageFooter = styled.img`
-  height: 56px;
   @media(max-width:700px){
-    height: 30px;
+    height: 28px;
     margin: 10px !important;
   }
 `;

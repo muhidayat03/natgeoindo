@@ -9,6 +9,7 @@ import styled from 'styled-components';
 import { Link, useHistory } from 'react-router-dom';
 import KopiImage from './assets/jurnal1/biji1-min.jpg';
 import BayarImage from './assets/jurnal1/bayar_kopi-min.jpeg';
+import Pertamina from './assets/jurnal1/logo_pertamina_white.png';
 
 
 
@@ -82,7 +83,10 @@ function App() {
       {loading}
       <GlobalStyles></GlobalStyles>
       <Navbar>
+        <div style={{height: '100%', display: 'flex', alignItems: 'center'}}>
         <Logo />
+        <Logo src={Pertamina} style={{height:48}}/>
+        </div>
         <Link to="list">
           <div className="hover" style={{ marginRight: 24, height: 40, width: 40, borderRadius: 20, border: "1px solid white", color: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <span style={{ color: 'white' }} className="icon-list icon-class"></span>
