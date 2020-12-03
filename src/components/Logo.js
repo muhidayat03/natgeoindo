@@ -2,17 +2,18 @@
 import styled from 'styled-components';
 import Image from '../assets/img/logo-white.png'
 
-export default ({ style, src }) => <Logo style={style} src={src} />;
+export default ({ style, src, isResponsive }) => <Logo style={style} src={src} isResponsive={isResponsive}/>;
 const Logo = styled.img`
-  height: 100%;
+  height: 60px;
   object-fit: contain;
   position: relative;
 
-  @media(max-width: 600px){
-    height: 36px !important;
+  @media(max-width: 600px){ 
+    height:${({isResponsive}) => `${isResponsive ? '36px' : '100%'} !important;`} 
+
   }
-  @media(max-width: 480px){
-    height: 30px !important;
+  @media(max-width: 380px){ 
+    height:${({isResponsive}) => `${isResponsive ? '30px' : '100%'} !important;`} 
   }
 `;
 

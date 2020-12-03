@@ -9,7 +9,7 @@ export default styled.header`
   justify-content: space-between;
   position: fixed;
   left: 0px;  
-  padding:25px 4px;
+  padding:24px;
   transition: all 0.3s ease 0s;
   /* background-color: black;  */
   background-image: linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0));

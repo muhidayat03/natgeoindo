@@ -1,14 +1,11 @@
-import './App.css'; 
+import './App.css';
 import React, { useState, useEffect } from 'react';
 import { createGlobalStyle } from 'styled-components';
 import Navbar from './components/Navbar';
 import Logo from './components/Logo';
-
-import ReactFullpage from '@fullpage/react-fullpage';
 import styled from 'styled-components';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import KopiImage from './assets/jurnal1/biji1-min.jpg';
-import BayarImage from './assets/jurnal1/bayar_kopi-min.jpeg';
 import Pertamina from './assets/jurnal1/logo_pertamina_white.png';
 
 
@@ -29,7 +26,7 @@ const GlobalStyles = createGlobalStyle`
 function App() {
 
   const [imgsLoaded, setImgsLoaded] = useState(false);
-  const IMAGES = [BayarImage];
+  const IMAGES = [KopiImage];
 
   const history = useHistory();
 
@@ -44,20 +41,22 @@ function App() {
       return new Promise((resolve, reject) => {
         console.log(image)
         const loadImg = new Image()
-        loadImg.src = image 
+        loadImg.src = image
         loadImg.onload = () =>
           setTimeout(() => {
             resolve(image.url)
-          }, 2000)
+          }, 1000)
         loadImg.onerror = err => reject(err)
       })
-    } 
+    }
     Promise.all(IMAGES.map(image => loadImage(image)))
       .then(() => setImgsLoaded(true))
       .catch(err => console.log("Failed to load images", err))
   }, []);
 
-  let loading = <div style={{
+
+
+  let loading = <><div style={{
     height: '100vh',
     backgroundColor: 'black',
     width: '100%',
@@ -68,10 +67,24 @@ function App() {
     zIndex: 200,
     opacity: !imgsLoaded ? 1 : 0,
     visibility: !imgsLoaded ? 'visible' : 'hidden',
-    transition: 'opacity 0.5s, visibility 0.5s linear 0.2s',
+    transition: 'opacity 1s, visibility 0.5s linear 2s',
   }}>
-    <div className="aaa"></div>
   </div>
+    <div style={{
+      height: '100vh',
+      display: 'flex',
+      width: '100%',
+      position: 'fixed',
+      justifyContent: 'center',
+      alignItems: 'center',
+      zIndex: 300,
+      opacity: !imgsLoaded ? 1 : 0,
+      visibility: !imgsLoaded ? 'visible' : 'hidden',
+      transition: 'opacity 1s, visibility 0.5s linear 2s',
+    }}>
+      <div className="aaa"></div>
+    </div>
+  </>
 
 
 
@@ -83,52 +96,55 @@ function App() {
       {loading}
       <GlobalStyles></GlobalStyles>
       <Navbar>
-        <div style={{height: '100%', display: 'flex', alignItems: 'center'}}>
-        <Logo />
-        <Logo src={Pertamina} style={{height:48}}/>
-        </div>
-        <Link to="list">
-          <div className="hover" style={{ marginRight: 24, height: 40, width: 40, borderRadius: 20, border: "1px solid white", color: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            <span style={{ color: 'white' }} className="icon-list icon-class"></span>
-          </div>
-        </Link>
+
+        <Logo isResponsive={true} />
+        <Logo isResponsive={true} src={Pertamina} />
       </Navbar>
-      <ReactFullpage
-        //fullpage options  
-        scrollingSpeed={400} easingcss3='ease-out'
-
-        render={({ state, fullpageApi }) => {
-          return (
-            <ReactFullpage.Wrapper>
-              <div className="section" style={{ backgroundColor: 'green' }}>
-                <Bg style={{ paddingTop: 80, backgroundColor: 'black', textAlign: "left" }} image={KopiImage}>
-                  <div className='overlay' style={{ display: 'flex', alignItems: 'center', padding: 24 }}>
-                    <div>
-                      <h1 style={{ color: 'white' }} className='title'>BERDIKARI DENGAN KOPI</h1>
-                      <p className="subTitle">
-                        Dari Konservasi Satwa, hingga UMKM yang Mendunia
-                      </p>
-                      <button onClick={() => { history.push('kopi') }} >LIHAT</button>
-                    </div>
-
-                  </div>
-                </Bg>
-              </div>
-            </ReactFullpage.Wrapper>
-          );
-        }}
-      />
+      <Bg style={{ paddingTop: 80, backgroundColor: 'black', textAlign: "left" }} image={KopiImage}>
+        <div className='overlay' style={{ display: 'flex', alignItems: 'center', padding: 24 }}>
+          <div>
+            <div style={{ zIndex: 100, marginBottom: 40 }}>
+              <Title>
+                Berdikari dengan Kopi
+            </Title>
+              <SubTitle>
+                Dari Konservasi Satwa, hingga UMKM yang Mendunia
+            </SubTitle> 
+            </div>
+            <button onClick={() => { history.push('kopi') }} >LIHAT</button>
+          </div>
+        </div>
+      </Bg>
 
     </>
   );
 }
 
 const Bg = styled.div`
-  height: 100%;
+  height: 100vh;
   width: 100%;
   background-size: cover !important;
   z-index: -100; 
   background: ${({ image }) => `url(${image}) center center no-repeat`};
+`;
+
+const Title = styled.h1`
+  /* text-transform: uppercase; */
+  color: white;
+  font-size: 68px;
+  margin: 0;
+  @media(max-width:400px){
+    font-size: 48px;
+  }
+`;
+
+const SubTitle = styled.p`
+  color: white;
+  font-size: 32px;
+  margin: 0;
+  @media(max-width:400px){
+    font-size: 24px;
+  }
 `;
 
 
