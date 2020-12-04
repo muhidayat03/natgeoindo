@@ -53,7 +53,7 @@ h1,h2, h3, h4, h5{
   bottom : 4px !important;
   z-index: 99;
   position: absolute;
-  margin-left: -90px;
+  margin-left: -75px;
   left: 50%;
 }
 
@@ -66,8 +66,7 @@ h1,h2, h3, h4, h5{
 .react-slideshow-container+div.indicators .each-slideshow-indicator:before {
   width: 20px !important;
   height: 20px !important;
-  opacity: 1;
-  background-color: red;
+  opacity: 1; 
   border : 1px solid white;
   margin-left: 5px !important;
 }
@@ -83,6 +82,10 @@ h1,h2, h3, h4, h5{
   visibility:hidden;  
 }
 
+.react-slideshow-container, .react-slideshow-zoom-wrapper, .zoom-wrapper{
+  height: 100% !important;
+  /* background-color: blue !important; */
+}
 
 /* h3 {
   font-size: 5em;
@@ -183,6 +186,11 @@ button:hover{
   z-index: 40;
 }
 
+/* #sejarah span{ 
+  line-height: 1.8 !important;
+  font-family: charter, Georgia, Cambria, "Times New Roman", Times, serif !important;
+  font-size: 20px !important;
+} */
 
 .title{
   font-family: Fjalla One;
@@ -211,6 +219,16 @@ button:hover{
   .subTitle {
     font-size: 20px;
   }
-
-  
+ 
 }
+/* 
+@media (max-width: 800px){
+
+ 
+  #sejarah span{ 
+    line-height: 1.8 !important;
+    font-family: charter, Georgia, Cambria, "Times New Roman", Times, serif !important;
+    font-size: 18px !important;
+  }
+  
+} */

@@ -14,10 +14,9 @@ function App() {
 
   return (
     <Switch>
-      <Route basename={'/testing'} path={`${process.env.PUBLIC_URL}/list`} component={ListArticle} />
-      <Route basename={'/testing'} path={`${process.env.PUBLIC_URL}/kopi`} component={Jurnal1} />
-      <Route basename={'/testing'} path={`${process.env.PUBLIC_URL}/kopi2`} component={Jurnal2} />
-      <Route basename={'/testing'} component={Home} />
+      <Route path='/list' component={ListArticle} />
+      <Route path='/kopi' component={Jurnal1} /> 
+      <Route  component={Home} />
     </Switch>
   );
 }

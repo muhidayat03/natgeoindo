@@ -6,7 +6,10 @@ import Logo from './components/Logo';
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 import KopiImage from './assets/jurnal1/biji1-min.jpg';
-import Pertamina from './assets/jurnal1/logo_pertamina_white.png';
+import Pertamina from './assets/jurnal1/logo_pertamina_bg.png';
+import Natgeo from './assets/jurnal1/natgeo.png';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 
 
@@ -37,9 +40,11 @@ function App() {
 
 
   useEffect(() => {
+    AOS.init({
+      duration: 1500
+    })
     const loadImage = image => {
       return new Promise((resolve, reject) => {
-        console.log(image)
         const loadImg = new Image()
         loadImg.src = image
         loadImg.onload = () =>
@@ -97,22 +102,25 @@ function App() {
       <GlobalStyles></GlobalStyles>
       <Navbar>
 
-        <Logo isResponsive={true} />
-        <Logo isResponsive={true} src={Pertamina} />
+        <Logo isResponsive={true} src={Natgeo} height='80px' />
+        <Logo isResponsive={true} src={Pertamina} height='80px' />
       </Navbar>
       <Bg style={{ paddingTop: 80, backgroundColor: 'black', textAlign: "left" }} image={KopiImage}>
         <div className='overlay' style={{ display: 'flex', alignItems: 'center', padding: 24 }}>
-          <div>
-            <div style={{ zIndex: 100, marginBottom: 40 }}>
-              <Title>
-                Berdikari dengan Kopi
+          {
+            imgsLoaded &&
+            <div>
+              <div style={{ zIndex: 100, marginBottom: 40 }} data-aos="fade-up" >
+                <Title data-aos="fade-up">
+                  Berdikari dengan Kopi
             </Title>
-              <SubTitle>
-                Dari Konservasi Satwa, hingga UMKM yang Mendunia
-            </SubTitle> 
+                <SubTitle data-aos="fade-up" data-aos-delay="400">
+                  Dari konservasi satwa sampai kemandirian warga yang mendunia
+            </SubTitle>
+              </div>
+              <button data-aos="zoom-out-left" data-aos-delay="600" onClick={() => { history.push('kopi') }} >LIHAT</button>
             </div>
-            <button onClick={() => { history.push('kopi') }} >LIHAT</button>
-          </div>
+          }
         </div>
       </Bg>
 
@@ -139,6 +147,7 @@ const Title = styled.h1`
 `;
 
 const SubTitle = styled.p`
+  font-family: charter, Georgia, Cambria, "Times New Roman", Times, serif;
   color: white;
   font-size: 32px;
   margin: 0;

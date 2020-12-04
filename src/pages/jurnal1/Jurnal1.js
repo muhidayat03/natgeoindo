@@ -29,10 +29,11 @@ import {
   useScrollSection,
   Section,
 } from 'react-scroll-section';
-import { useScrollYPosition } from 'react-use-scroll-position';
 import { Zoom } from 'react-slideshow-image';
-
-
+import Youtube from './Youtube';
+import ScrollWrapper from './ScrollWrapper';
+import audio from '../../assets/jurnal1/audio.mp3';
+import Player from './Player';
 
 
 
@@ -55,17 +56,14 @@ const NumberCount = ({ number }) => {
 
 
 
-const IMAGES = [bgImage, bgImage1, RobustaImage, RobustaImage, OwaImage, ProdukImage, Slide1, ];
+const IMAGES = [bgImage, bgImage1, RobustaImage, RobustaImage, OwaImage, ProdukImage, Slide1, Slide2, Slide3, Slide4, Slide5];
 const Jurnal1 = () => {
-  const scrollY = useScrollYPosition();
 
-  const [imgsLoaded, setImgsLoaded] = useState(false);
-  const [showVideo, setShowVideo] = useState(false);
-  const yt_container = createRef();
-  const videoObserver = new IntersectionObserver(onVideoIntersection, {
-    rootMargin: '100px',
-    threshold: 0
-  });
+  const [imgsLoaded, setImgsLoaded] = useState(false); 
+
+
+
+
 
   useEffect(() => {
     AOS.init({
@@ -79,7 +77,7 @@ const Jurnal1 = () => {
         loadImg.onload = () =>
           setTimeout(() => {
             resolve(image.url)
-          }, 1000)
+          }, 2000)
         loadImg.onerror = err => reject(err)
       })
     }
@@ -89,26 +87,9 @@ const Jurnal1 = () => {
       .catch(err => console.log("Failed to load images", err))
   }, []);
 
-  useEffect(() => {
-    if (window && 'IntersectionObserver' in window) {
-      if (yt_container && yt_container.current) {
-        videoObserver.observe(yt_container.current);
-      }
-    } else {
-      setShowVideo(true);
-    }
-  }, [yt_container]);
 
-  function onVideoIntersection(entries) {
-    if (!entries || entries.length <= 0) {
-      return;
-    }
 
-    if (entries[0].isIntersecting) {
-      setShowVideo(true);
-      videoObserver.disconnect();
-    }
-  }
+
 
 
   const TopMenu = () => {
@@ -122,23 +103,24 @@ const Jurnal1 = () => {
     const videoSection = useScrollSection('video');
     return (
       <>
-        <div style={{ cursor: 'pointer', position: "fixed", bottom: 32, right: 32, zIndex: 100 }}>
-          <ListMenu className="hover" style={{ marginBottom: 20, height: 60, width: 60, borderRadius: 30, border: "2px solid white", color: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: 'black' }}>
-            <span style={{ color: 'white', fontWeight: 'bold' }} className="icon-list icon-class"></span>
-            <div className="dropdown-content">
-              <div selected={sejarahSection.selected} onClick={sejarahSection.onClick} className="menu-item">Sejarah Kopi</div>
-              <div selected={owaSection.selected} onClick={owaSection.onClick} className="menu-item">Owa Jawa</div>
-              <div selected={panenSection.selected} onClick={panenSection.onClick} className="menu-item">Panen Kopi Puntang</div>
-              <div selected={produkSection.selected} onClick={produkSection.onClick} className="menu-item">Produk Kopi Puntang</div>
-              <div selected={bayarSection.selected} onClick={bayarSection.onClick} className="menu-item">Bayar Kopi Pakai Sampah</div>
-              <div selected={mitraSection.selected} onClick={mitraSection.onClick} className="menu-item">Kemitraan Kopi untuk UMKM</div>
-              <div selected={videoSection.selected} onClick={videoSection.onClick} className="menu-item">Video Kopi Aceh Bawadi</div>
-            </div>
-          </ListMenu>
-          <div selected={homeSection.selected} onClick={homeSection.onClick} className="hover" style={{ height: 60, width: 60, borderRadius: 30, border: "2px solid white", color: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: 'black' }}>
-            <span style={{ color: 'white', fontWeight: 'bold' }} className="icon-up icon-class"></span>
+        <ListMenu className="hover" style={{ marginBottom: 20, height: 60, width: 60, borderRadius: 30, border: "2px solid white", color: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: 'black' }}>
+          <span style={{ color: 'white', fontWeight: 'bold' }} className="icon-list icon-class"></span>
+          <div className="dropdown-content">
+            <div selected={sejarahSection.selected} onClick={sejarahSection.onClick} className="menu-item">Sejarah Kopi</div>
+            <div selected={owaSection.selected} onClick={owaSection.onClick} className="menu-item">Owa Jawa</div>
+            <div selected={panenSection.selected} onClick={panenSection.onClick} className="menu-item">Panen Kopi Puntang</div>
+            <div selected={produkSection.selected} onClick={produkSection.onClick} className="menu-item">Produk Kopi Puntang</div>
+            <div selected={bayarSection.selected} onClick={bayarSection.onClick} className="menu-item">Bayar Kopi Pakai Sampah</div>
+            <div selected={mitraSection.selected} onClick={mitraSection.onClick} className="menu-item">Kemitraan Kopi untuk UMKM</div>
+            <div selected={videoSection.selected} onClick={videoSection.onClick} className="menu-item">Video Kopi Aceh Bawadi</div>
           </div>
+        </ListMenu>
+
+        <Player url={audio} />
+        <div selected={homeSection.selected} onClick={homeSection.onClick} className="hover" style={{ height: 60, width: 60, borderRadius: 30, border: "2px solid white", color: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: 'black' }}>
+          <span style={{ color: 'white', fontWeight: 'bold' }} className="icon-up icon-class"></span>
         </div>
+
       </>
     );
   };
@@ -176,83 +158,66 @@ const Jurnal1 = () => {
 
 
 
-  // const images = [
-  //   'images/slide_2.jpg',
-  //   'images/slide_3.jpg',
-  //   'images/slide_4.jpg'
-  // ];
-
   const images = [Slide1, Slide2, Slide3, Slide4, Slide5];
 
-  const zoomInProperties = {
-    // indicators: true,
-    autoplay: false,
-    arrows: false,
-    indicators: true,
-    scale: 1.4,
-  }
+
   const properties = {
     autoplay: false,
-    // arrows: false,
     indicators: true,
     scale: 1.4,
     prevArrow: <div style={{ width: 40, height: 40, top: '50%', left: '10px', marginRight: '-20px', marginTop: '-20px', backgroundColor: 'black', padding: 10, borderRadius: 50, position: 'absolute', border: '2px solid white' }} className='hover'><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="#fff" ><path d="M242 180.6v-138L0 256l242 213.4V331.2h270V180.6z" /></svg></div>,
     nextArrow: <div style={{ width: 40, height: 40, top: '50%', right: '10px', marginLeft: '-20px', marginTop: '-20px', backgroundColor: 'black', padding: 10, borderRadius: 50, position: 'absolute', border: '2px solid white' }} className='hover'><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="#fff"  ><path d="M512 256L270 42.6v138.2H0v150.6h270v138z" /></svg></div>
   };
 
-  // height: 100px;
-  // width: 100px;
-  // position: absolute;
-  // left: 50%;
-  // margin-left: -50px;
-  // top: 50%;
-  // margin-top: -50px;
 
   const slideRef = useRef();
-  const back = () => {
-    slideRef.current.goBack();
-  }
-
-  const next = () => {
-    console.log('adsfasdfdfasdfsdf')
-    slideRef.current.goNext();
-  }
 
 
+
+  const testing = <SideContainer2 style={{ position: 'relative' }} >
+    <Zoom {...properties} style={{ height: '100%', position: 'relative' }} ref={slideRef}>
+      {images.map((each, index) => (
+        <div key={index} style={{ width: "100%", height: '100%', backgroundColor: 'red' }}>
+          <img style={{ width: "100%", objectFit: 'cover', height: '100%', position: "absolute", top: '0', left: 0 }} src={each} />
+        </div>
+      ))}
+    </Zoom>
+    <div style={{ color: '#FED602', fontSize: 14, backgroundColor: 'black', padding: 4, position: 'absolute', top: 10, left: '50%', marginLeft: -98, zIndex: 99 }}>Foto oleh Septianjar Muharam</div>
+  </SideContainer2>
 
   return <>
     {loading}
-
     <ScrollingProvider>
       <div >
         <div>
           <GlobalStyle />
-          {scrollY > 20 && scrollY && scrollY <= document.documentElement.scrollHeight - window.innerHeight - 50 &&
+          <ScrollWrapper>
             <TopMenu></TopMenu>
-          }
-
+          </ScrollWrapper>
           <Section id="home">
             <Container >
               <Navbar style={{ height: 120, padding: 24, position: 'absolute', }}>
                 <Logo />
               </Navbar>
+              {
+                imgsLoaded &&
+                <div style={{ zIndex: 100 }} data-aos='fade-up'>
+                  <Title data-aos="fade-up">
+                    Berdikari dengan Kopi
+                  </Title>
+                  <SubTitle data-aos="fade-up" data-aos-delay="200">
+                    Dari konservasi satwa sampai kemandirian warga yang mendunia
+                  </SubTitle>
+                  <div style={{ width: 140, height: 8, backgroundColor: '#FED602', marginTop: 40 }}></div>
+                </div>
+              }
 
-              <div style={{ zIndex: 100 }} data-aos='fade-up'>
-                <Title>
-                  Berdikari dengan Kopi
-            </Title>
-                <SubTitle>
-                  Dari konservasi satwa sampai kemandirian warga yang mendunia
-            </SubTitle>
-                <div style={{ width: 140, height: 8, backgroundColor: '#FED602', marginTop: 40 }}></div>
-              </div>
               <BgOverlay></BgOverlay>
             </Container>
           </Section>
         </div>
-
         <Section id="sejarah">
-          <Container2>
+          <Container2 >
             <Parallax blur={{ min: -10, max: 15 }} bgImage={SpaceImage} strength={500} >
               <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center' }}>
                 <ContentContainer style={{ backgroundColor: 'rgba(251, 252, 254, .05) ', padding: '40px 20px', }}>
@@ -262,6 +227,29 @@ const Jurnal1 = () => {
                   <p data-aos="fade-up">
                     Belakangan, Kaldi mengetahui bahwa kambing-kambing itu memakan sejenis kacang merah. Ia lalu menyimpulkan bahwa kacang itulah penyebab kawanan ternaknya bertingkah aneh. Kaldi kemudian mengabarkan temuannya kepada seorang biksu yang membutuhkan sesuatu untuk tetap terjaga sepanjang malam ketika berdoa. Namun, dalam cerita yang lain, biksu tersebut menolak dan melemparkan kacang tersebut ke dalam api dan memunculkan aroma yang menyenangkan.
                   </p>
+                  {/* <Wave
+                    text='  
+                    Sekitar 13 abad silam, di daratan Etiopia, hiduplah seorang penggembala kambing bernama Kaldi. Pada suatu hari, ia melihat kawanan ternaknya bertingkah aneh. Mereka seolah-olah sedang menari! Tidak ada yang bisa memastikan kebenaran cerita tersebut. Tetapi, kisah itulah yang sering disebut-sebut sebagai awal mula orang mengenal kopi.
+                    '
+                    effect="verticalFadeIn"
+                    effectChange={2.5}
+                    speed={20}
+                    iterations={1}
+
+                  />
+                  <Wave
+                    text='  
+                    Belakangan, Kaldi mengetahui bahwa kambing-kambing itu memakan sejenis kacang merah. Ia lalu menyimpulkan bahwa kacang itulah penyebab kawanan ternaknya bertingkah aneh. Kaldi kemudian mengabarkan temuannya kepada seorang biksu yang membutuhkan sesuatu untuk tetap terjaga sepanjang malam ketika berdoa. Namun, dalam cerita yang lain, biksu tersebut menolak dan melemparkan kacang tersebut ke dalam api dan memunculkan aroma yang menyenangkan.
+                    '
+                    effect="verticalFadeIn"
+                    effectChange={2.5}
+                    speed={20}
+                    iterations={1}
+                    delay={20}
+
+                  /> */}
+
+
                   <div style={{ marginTop: 40 }} data-aos="fade-up">
                     <p style={{ fontWeight: 'bold', fontSize: 24 }}>
                       Tidak ada yang bisa memastikan kebenaran cerita tersebut. Tetapi, kisah itulah yang sering disebut-sebut sebagai awal mula orang mengenal kopi.
@@ -274,7 +262,7 @@ const Jurnal1 = () => {
           </Container2>
         </Section>
 
-        <Container3 style={{ display: 'flex' }}>
+        <Container3 style={{ display: 'flex' }} >
           <Balok>
             <div className='balok-item' style={{ margin: '20px 0' }}></div>
           </Balok>
@@ -299,16 +287,7 @@ const Jurnal1 = () => {
 
 
         <Container4>
-          <SideContainer2 style={{position: 'relative'}} > 
-            <Zoom {...properties} style={{ height: '100%', position: 'relative' }} ref={slideRef}>
-              {images.map((each, index) => (
-                <div key={index} style={{ width: "100%", height: '600px', backgroundColor: 'red' }}>
-                  <img style={{ width: "100%", height: '100%', position: "absolute", top: '0', left: 0 }} src={each} />
-                </div>
-              ))}
-            </Zoom> 
-            <div style={{color: '#FED602',fontSize: 14, backgroundColor: 'black', padding:4,  position: 'absolute', bottom: 10, left: 10, zIndex: 99}}>Foto oleh Septianjar Muharam</div> 
-          </SideContainer2>
+          {testing}
           <SideContainer
           >
             <article >
@@ -365,7 +344,7 @@ const Jurnal1 = () => {
                     Diperlukan upaya konservasi demi menyelamatkan Owa jawa dari kepunahan, sekaligus menjaga kelestarian hutan. Namun, ada beberapa tantangan yang harus dihadapi. Selain habitat yang semakin sempit, perburuan oleh manusia juga mengancam Owa jawa. Di wilayah Pegunungan Malabar, Jawa Barat, misalnya, upaya konservasi Owa jawa akan lebih sulit lantaran masih maraknya pemburu liar dan perambah hutan. Oleh sebab itu, peran masyarakat di sekitar lokasi konservasi sangat dibutuhkan.
               </p>
                   <p style={{ color: 'white' }} data-aos="fade-up">
-                    Upaya untuk melibatkan masyarakat dalam pelestarian hutan sebagai habitat Owa jawa telah dilakukan Pertamina EP Subang Field. Caranya, mengajak warga yang tinggal di sekitar Gunung Puntang untuk menanam kopi. Aktivitas yang telah berlangsung sejak 2017 ini merupakan bagian Program CSR Melintang (Masyarakat Peduli Alam Puntang).
+                    Upaya untuk melibatkan masyarakat dalam pelestarian hutan sebagai habitat Owa jawa telah dilakukan Pertamina EP Asset 3 Subang Field. Caranya, mengajak warga yang tinggal di sekitar Gunung Puntang untuk menanam kopi. Aktivitas yang telah berlangsung sejak 2017 ini merupakan bagian Program CSR Melintang (Masyarakat Peduli Alam Puntang).
               </p>
                 </article>
               </DetailedArticle>
@@ -521,35 +500,7 @@ const Jurnal1 = () => {
 
           <Section id="video">
 
-            <div
-              ref={yt_container}
-              className="video"
-              style={{
-                position: "relative",
-                paddingBottom: "56.25%" /* 16:9 */,
-                paddingTop: 25,
-                height: 0
-              }}
-            >
-              {
-                showVideo ? <iframe
-                  title='video'
-                  loading="lazy"
-                  style={{
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
-                    width: "100%",
-                    height: "100%"
-                  }}
-                  src="https://www.youtube.com/embed/d6faWQW5aLI?&autoplay=1&mute=1&enablejsapi=1&loop=1"
-                  frameBorder="0"
-                  allowFullScreen
-                  allow="autoplay; encrypted-media"
-                /> : undefined
-              }
-
-            </div>
+            <Youtube />
           </Section>
 
           <div style={{ backgroundColor: 'black', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', paddingBottom: 60 }}>
@@ -720,7 +671,7 @@ const SideContainer = styled.div`
 
 const SideContainer2 = styled.div`
   width : 50%; 
-  height: 600px;
+  min-height: 600px;
   @media(max-width:978px){
         width: 100%; 
   }
