@@ -186,11 +186,11 @@ button:hover{
   z-index: 40;
 }
 
-/* #sejarah span{ 
+.wave-cwontainer span{ 
   line-height: 1.8 !important;
   font-family: charter, Georgia, Cambria, "Times New Roman", Times, serif !important;
   font-size: 20px !important;
-} */
+}
 
 .title{
   font-family: Fjalla One;

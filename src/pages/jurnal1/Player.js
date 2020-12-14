@@ -8,12 +8,17 @@ const useAudio = url => {
 
   const toggle = () => setPlaying(!playing);
 
-  useEffect(() => {  
-    if (!playing) { 
+  useEffect(() => {
+    if (!playing) {
       audio.pause();
-    } else { 
-      audio.play();
+    } else {
+
+      audio.play().catch(err => {
+        setPlaying(false)
+        console.log(err)
+      })
     }
+ 
   },
     [playing]
   );
@@ -25,7 +30,7 @@ const useAudio = url => {
       audio.removeEventListener('ended', () => setPlaying(false));
       setPlaying(false)
     };
-  }, []);
+  }, [audio]);
 
   return [playing, toggle];
 };
@@ -34,9 +39,9 @@ const Player = ({ url }) => {
   const [playing, toggle] = useAudio(url);
 
   return (
-    <div className="hover" onClick={toggle} style={{ marginBottom: 20, height: 60, width: 60, borderRadius: 30, border: "2px solid white", color: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: 'black' }}>
+    <div className="hover" id='' onClick={toggle} style={{ marginBottom: 20, height: 60, width: 60, borderRadius: 30, border: "2px solid white", color: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: 'black' }}>
       {/* {playing ? "Pause" : "Play"} */}
-      <img src={playing? Mute : Unmute} height={20}></img>
+      <img src={playing ? Mute : Unmute} height={20}></img>
     </div >
   );
 };

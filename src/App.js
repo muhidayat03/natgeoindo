@@ -16,6 +16,7 @@ function App() {
     <Switch>
       <Route path='/list' component={ListArticle} />
       <Route path='/kopi' component={Jurnal1} /> 
+      {/* <Route path='/kopi2' component={Jurnal2} />  */}
       <Route  component={Home} />
     </Switch>
   );

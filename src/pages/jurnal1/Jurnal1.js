@@ -12,12 +12,15 @@ import Navbar from '../../components/Navbar';
 import Logo from '../../components/Logo';
 import Logo1 from '../../assets/jurnal1/logo_national_geographic.png';
 import Logo2 from '../../assets/jurnal1/logo_national_geographic_coid.png';
-import Logo3 from '../../assets/jurnal1/logo_pertamina_white.png';
+import Logo3 from '../../assets/jurnal1/logo_pertamina_bg.png';
+import Pertamina from '../../assets/jurnal1/Pertamina_logo_putih.png';
 import Slide1 from '../../assets/jurnal1/slide/1.jpg';
 import Slide2 from '../../assets/jurnal1/slide/2.jpg';
 import Slide3 from '../../assets/jurnal1/slide/3.jpg';
 import Slide4 from '../../assets/jurnal1/slide/4.jpg';
 import Slide5 from '../../assets/jurnal1/slide/5.jpg';
+import Natgeo from '../../assets/jurnal1/natgeo.png';
+
 
 import CountUp from 'react-countup';
 import AOS from 'aos';
@@ -32,7 +35,7 @@ import {
 import { Zoom } from 'react-slideshow-image';
 import Youtube from './Youtube';
 import ScrollWrapper from './ScrollWrapper';
-import audio from '../../assets/jurnal1/audio.mp3';
+import audio from '../../assets/jurnal1/nature.mp3';
 import Player from './Player';
 
 
@@ -59,7 +62,7 @@ const NumberCount = ({ number }) => {
 const IMAGES = [bgImage, bgImage1, RobustaImage, RobustaImage, OwaImage, ProdukImage, Slide1, Slide2, Slide3, Slide4, Slide5];
 const Jurnal1 = () => {
 
-  const [imgsLoaded, setImgsLoaded] = useState(false); 
+  const [imgsLoaded, setImgsLoaded] = useState(false);
 
 
 
@@ -165,8 +168,8 @@ const Jurnal1 = () => {
     autoplay: false,
     indicators: true,
     scale: 1.4,
-    prevArrow: <div style={{ width: 40, height: 40, top: '50%', left: '10px', marginRight: '-20px', marginTop: '-20px', backgroundColor: 'black', padding: 10, borderRadius: 50, position: 'absolute', border: '2px solid white' }} className='hover'><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="#fff" ><path d="M242 180.6v-138L0 256l242 213.4V331.2h270V180.6z" /></svg></div>,
-    nextArrow: <div style={{ width: 40, height: 40, top: '50%', right: '10px', marginLeft: '-20px', marginTop: '-20px', backgroundColor: 'black', padding: 10, borderRadius: 50, position: 'absolute', border: '2px solid white' }} className='hover'><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="#fff"  ><path d="M512 256L270 42.6v138.2H0v150.6h270v138z" /></svg></div>
+    prevArrow: <div style={{ opacity: 0.5, width: 50, height: 50, top: '50%', left: '10px', marginRight: '-25px', marginTop: '-25px', backgroundColor: 'black', padding: 10, borderRadius: 50, position: 'absolute', border: '2px solid white' }} className='hover'><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="#fff" ><path d="M242 180.6v-138L0 256l242 213.4V331.2h270V180.6z" /></svg></div>,
+    nextArrow: <div style={{ opacity: 0.5, width: 50, height: 50, top: '50%', right: '10px', marginLeft: '-25px', marginTop: '-25px', backgroundColor: 'black', padding: 10, borderRadius: 50, position: 'absolute', border: '2px solid white' }} className='hover'><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="#fff"  ><path d="M512 256L270 42.6v138.2H0v150.6h270v138z" /></svg></div>
   };
 
 
@@ -182,7 +185,9 @@ const Jurnal1 = () => {
         </div>
       ))}
     </Zoom>
-    <div style={{ color: '#FED602', fontSize: 14, backgroundColor: 'black', padding: 4, position: 'absolute', top: 10, left: '50%', marginLeft: -98, zIndex: 99 }}>Foto oleh Septianjar Muharam</div>
+    {/* <div style={{height: '10%', color:'#FED602', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>Foto oleh Septianjar Muharam</div> */}
+    {/* <div style={{ color: '#FED602', fontSize: 14, backgroundColor: 'black', padding: 4, position: 'absolute', bottom: 0, left: '50%', widht: '100%', zIndex: 99 }}>Foto oleh Septianjar Muharam</div> */}
+    <div style={{ color: '#FED602', fontSize: 14, backgroundColor: 'black', padding: 4, position: 'absolute', bottom: 50, left: '50%', marginLeft: -98, zIndex: 99 }}>Foto oleh Septianjar Muharam</div>
   </SideContainer2>
 
   return <>
@@ -196,8 +201,11 @@ const Jurnal1 = () => {
           </ScrollWrapper>
           <Section id="home">
             <Container >
-              <Navbar style={{ height: 120, padding: 24, position: 'absolute', }}>
-                <Logo />
+              <Navbar style={{ height: 120, position: 'absolute', }}>
+                <Logo isResponsive={true} src={Natgeo} height='80px' />
+
+                <Logo isResponsive={true} src={Logo3} height='80px' />
+
               </Navbar>
               {
                 imgsLoaded &&
@@ -221,10 +229,10 @@ const Jurnal1 = () => {
             <Parallax blur={{ min: -10, max: 15 }} bgImage={SpaceImage} strength={500} >
               <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center' }}>
                 <ContentContainer style={{ backgroundColor: 'rgba(251, 252, 254, .05) ', padding: '40px 20px', }}>
-                  <p data-aos="fade-up">
+                  <p data-aos="fade-down" data-aos-offset="400">
                     <First>S</First>ekitar 13 abad silam, di daratan Etiopia, hiduplah seorang penggembala kambing bernama Kaldi. Pada suatu hari, ia melihat kawanan ternaknya bertingkah aneh. Mereka seolah-olah sedang menari! Tidak ada yang bisa memastikan kebenaran cerita tersebut. Tetapi, kisah itulah yang sering disebut-sebut sebagai awal mula orang mengenal kopi.
                   </p>
-                  <p data-aos="fade-up">
+                  <p data-aos="fade-down" data-aos-offset="400">
                     Belakangan, Kaldi mengetahui bahwa kambing-kambing itu memakan sejenis kacang merah. Ia lalu menyimpulkan bahwa kacang itulah penyebab kawanan ternaknya bertingkah aneh. Kaldi kemudian mengabarkan temuannya kepada seorang biksu yang membutuhkan sesuatu untuk tetap terjaga sepanjang malam ketika berdoa. Namun, dalam cerita yang lain, biksu tersebut menolak dan melemparkan kacang tersebut ke dalam api dan memunculkan aroma yang menyenangkan.
                   </p>
                   {/* <Wave
@@ -250,7 +258,7 @@ const Jurnal1 = () => {
                   /> */}
 
 
-                  <div style={{ marginTop: 40 }} data-aos="fade-up">
+                  <div style={{ marginTop: 40 }} data-aos="flip-down" >
                     <p style={{ fontWeight: 'bold', fontSize: 24 }}>
                       Tidak ada yang bisa memastikan kebenaran cerita tersebut. Tetapi, kisah itulah yang sering disebut-sebut sebagai awal mula orang mengenal kopi.
                   </p>
@@ -495,8 +503,27 @@ const Jurnal1 = () => {
                   Upaya Pertamina dalam memanfaatkan kopi untuk mendukung UMKM menjadi energi positif bagi Indonesia. Energi yang memberdayakan masyarakat lokal di bidang ekonomi dan mampu mengembangkan potensi daerahnya sendiri. Bukan hal yang tak mungkin, jika di masa depan UMKM turut menjadi penyangga ekonomi nasional.
           </p>
               </article>
+
             </Container3>
           </Section>
+
+          <article>
+            <div style={{ backgroundColor: 'black' }}>
+              <Container3 style={{ display: 'flex', minHeight: '100vh', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', }}>
+                <h1 style={{ fontSize: 28, textAlign: 'center', color: 'white' }} data-aos="zoom-in">
+                  Melangkah Menuju  Pembangunan Berkelanjutan
+              </h1>
+                <p style={{ textAlign: 'center', color: 'white' }}
+                  data-aos="flip-left"
+                  data-aos-offset="120"
+
+                >
+                  Pandemi ternyata memberi arti, asalkan kita dapat melihat dari sisi yang berbeda. Begitupun halnya dengan program-program tanggung jawab sosial dan lingkungan yang telah dilaksanakan Pertamina, tidak terhenti hanya karena pendemi. Sebagai perusahaan energi nasional, Pertamina turut serta berkontribusi di dalam pencapaian Tujuan Pembangunan Berkelanjutan (Sustainable Development Goals) melalui program-program pemberdayaan masyarakat. Target Sustainable Development Goals dan ISO 26000 menjadi poros prioritas bagi Pertamina dalam mengelola program tanggung jawab sosial dan lingkungan, termasuk di dalamnya pemberdayaan masyarakat, dengan mengedepankan aspek inklusif dan kolaboratif.
+              </p>
+                <div style={{ width: 140, height: 8, backgroundColor: '#FED602', marginTop: 40 }}></div>
+              </Container3>
+            </div>
+          </article>
 
           <Section id="video">
 
@@ -521,7 +548,7 @@ const Jurnal1 = () => {
             <div style={{ display: "flex", flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
               <ImageFooter height={50} src={Logo1} style={{ margin: 10 }} />
               <ImageFooter height={40} src={Logo2} style={{ margin: 10 }} />
-              <ImageFooter height={40} src={Logo3} style={{ margin: 10 }} />
+              <ImageFooter height={40} src={Pertamina} style={{ margin: 10 }} />
             </div>
           </div>
 
@@ -784,6 +811,10 @@ const Balok = styled.div`
 const ImageFooter = styled.img`
   @media(max-width:700px){
     height: 28px;
+    margin: 10px !important;
+  }
+  @media(max-width:480px){
+    height: 18px;
     margin: 10px !important;
   }
 `;

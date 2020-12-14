@@ -12,9 +12,10 @@ const Logo = styled.img`
     height:${({isResponsive}) => `${isResponsive ? '60px' : '100%'} !important;`} 
 
   }
-  @media(max-width: 380px){ 
+  @media(max-width: 480px){ 
     height:${({isResponsive}) => `${isResponsive ? '40px' : '100%'} !important;`} 
   }
+ 
 `;
 
 Logo.defaultProps = {
